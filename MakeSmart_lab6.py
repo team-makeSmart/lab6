@@ -11,6 +11,7 @@ def crazyEye():
   """ This function changes eye color to a crazy eye color """
   """ TODO define function and decide if needs arguments.  Rename Function if wanted """
   
+  
 #Problem 1
 def makePicSepia():
   """ Converts a picture to a sepia tone  """
@@ -19,10 +20,22 @@ def makePicSepia():
  # TODO if the resulting red is over 255, set it to 255... This is a requirement for the function
 
   
-def BetterBnW():
-  """ Converts a picture to black and white """
-  """ TODO this function was defined previously in LAB#3.  Insert here """
+def betterBnW():
+    """ Converts an image to gray-scale """
+    """ TODO if we get negative feedback from LAB3 on this function, fix... otherwise remove this comment."""
+    pic = getPic()
+    pixels = getPixels(pic)
+    for p in pixels:
+        r = getRed(p)
+        g = getGreen(p)
+        b = getBlue(p)
+        luminance = r*0.299 + g*0.587 + b*0.114
+        setRed(p, luminance)
+        setGreen(p, luminance)
+        setBlue(p, luminance)
+    repaint(pic)
 
+    
 #Problem 2
 def Artify():
   """ This function will "artify" a pic by manipulating the color ranges """
