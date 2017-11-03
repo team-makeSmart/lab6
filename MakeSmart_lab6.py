@@ -28,6 +28,7 @@ def sephia():
            setRed(p, r)
            setBlue(p, r*.93)
    show(pic)
+   return pic
    
 
 def betterBnW(pic):
@@ -42,4 +43,29 @@ def betterBnW(pic):
         setRed(p, luminance)
         setGreen(p, luminance)
         setBlue(p, luminance)
-    return(pic)
+    return pic
+    
+def chromakey(threshold):
+    """Swaps the green in an image and replaces it with a different background image"
+    """Args: threshold (int or float): Sensitivity for greenscreen replacement"
+
+    print("Please select a photo with a green screen")
+    source = getPic()
+    print("Please select a photo to use as a background for your new picture")
+    background = getPic()
+    
+    if getWidth(background) < getWidth(source):
+        print("chromakey error - background image is too narrow. Background image width: %i. Source image width: %i." % getWidth(background), getWidth(source))
+        return
+    elif getHeight(background) < getHeight(source):
+        print("chromakey error - background image is too short. Background image height: %i. Source image height: %i." % getHeight(backgound), getHeight(source))
+        return
+    for x in range (0, getWidth(source)):
+        for y in range (0, getHeight(source)):
+            color = getColor(getPixel(source,x,y))
+            if distance(color, green) < threshold:
+                color = getColor(getPixel(background,x,y))
+                setColor(getPixel(source, x, y), color) 
+    show(source)
+    return source
+    
