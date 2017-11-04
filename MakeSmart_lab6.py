@@ -5,12 +5,42 @@
 
 #Warmup
 def removeRedEye():
-  """ This function removes the red-eye from  a pic """
-  """ TODO define function and decide if needs arguments.  Rename function if wanted """
+  """ This function removes the red-eye from  a pic and displays it """
+  pic = makePicture(pickAFile()) 
+  def removeRedEyeInBoundingBox(x1,y1,x2,y2):
+    for x in range(x1, x2):
+      for y in range(y1 , y2):
+        p = getPixel(pic, x, y)
+        color = getColor(p)
+        if distance(color,red) < 200.0:
+          r = getRed(p)
+          g = getGreen(p)
+          b = getBlue(p)
+          r = (g + b) / 2
+          color = makeColor(r , g, b)
+          setColor(p,color)  
+  removeRedEyeInBoundingBox(55,67,67,79)
+  removeRedEyeInBoundingBox(157,67,171,80)
+  show(pic)
+  
 
 def crazyEye():
-  """ This function changes eye color to a crazy eye color """
-  """ TODO define function and decide if needs arguments.  Rename Function if wanted """
+  """ This function removes the red-eye from  a pic and displays it as a yellow crazy-eye!!!"""
+  pic = makePicture(pickAFile()) 
+  def makeCrazyEyeInBoundingBox(x1,y1,x2,y2):
+    for x in range(x1, x2):
+      for y in range(y1 , y2):
+        p = getPixel(pic, x, y)
+        color = getColor(p)
+        if distance(color,red) < 200.0:
+          r = getRed(p)
+          g = r
+          b = getBlue(p)
+          color = makeColor(r , g, b *.10)
+          setColor(p,color)  
+  makeCrazyEyeInBoundingBox(55,67,67,79)
+  makeCrazyEyeInBoundingBox(157,67,171,80)
+  show(pic)
 
   
 #Problem 1
