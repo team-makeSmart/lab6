@@ -56,10 +56,34 @@ def betterBnW(pic):
     return(pic)
 
 #Problem 2
+
 def Artify():
-  """ This function will "artify" a pic by manipulating the color ranges """
-  """ TODO define function and decide if needs arguments.  Function should be name this per LAB#6 instruction. """
-  """ TODO See lab 6 for color ranges """
+  """ This function will artify a pic by manipulating the color ranges """
+  def changePixel(pixelColorValue):
+    """This nested function will take a pixels color value from 0 -255 and alter it to be within below range, then return it """
+    if pixelColorValue < 63:
+      pixelColorValue = 31
+    elif pixelColorValue >= 63 and pixelColorValue < 128:
+      pixelColorValue = 95
+    elif pixelColorValue >= 128 and pixelColorValue < 192:
+      pixelColor = 159
+    elif pixelColorValue >= 192:
+      pixelColorValue = 223 
+    return pixelColorValue  
+  pic = getPic() #Prompts user to choose a picture file, stores in pic variable
+  pixels = getPixels(pic)
+  for p in pixels:
+    r = getRed(p)  #Gets the red value from the pixel and stores in r
+    g = getGreen(p)   
+    b = getBlue(p)
+    r = changePixel(r) #Alters the red value and stores in r
+    g = changePixel(g)
+    b = changePixel(b)
+    setRed(p,r) #Sets the red value of the pixel 
+    setGreen(p,g)
+    setBlue(p,b)  
+  repaint(pic) #Displays picture to screen
+  
 
 #Problem 3
 def chromakey():
