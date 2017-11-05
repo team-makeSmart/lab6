@@ -5,12 +5,42 @@
 
 #Warmup
 def removeRedEye():
-  """ This function removes the red-eye from  a pic """
-  """ TODO define function and decide if needs arguments.  Rename function if wanted """
+  """ This function removes the red-eye from  a pic and displays it """
+  pic = makePicture(pickAFile()) 
+  def removeRedEyeInBoundingBox(x1,y1,x2,y2):
+    for x in range(x1, x2):
+      for y in range(y1 , y2):
+        p = getPixel(pic, x, y)
+        color = getColor(p)
+        if distance(color,red) < 200.0:
+          r = getRed(p)
+          g = getGreen(p)
+          b = getBlue(p)
+          r = (g + b) / 2
+          color = makeColor(r , g, b)
+          setColor(p,color)  
+  removeRedEyeInBoundingBox(55,67,67,79)
+  removeRedEyeInBoundingBox(157,67,171,80)
+  show(pic)
+  
 
 def crazyEye():
-  """ This function changes eye color to a crazy eye color """
-  """ TODO define function and decide if needs arguments.  Rename Function if wanted """
+  """ This function removes the red-eye from  a pic and displays it as a yellow crazy-eye!!!"""
+  pic = makePicture(pickAFile()) 
+  def makeCrazyEyeInBoundingBox(x1,y1,x2,y2):
+    for x in range(x1, x2):
+      for y in range(y1 , y2):
+        p = getPixel(pic, x, y)
+        color = getColor(p)
+        if distance(color,red) < 200.0:
+          r = getRed(p)
+          g = r
+          b = getBlue(p)
+          color = makeColor(r , g, b *.10)
+          setColor(p,color)  
+  makeCrazyEyeInBoundingBox(55,67,67,79)
+  makeCrazyEyeInBoundingBox(157,67,171,80)
+  show(pic)
 
   
 #Problem 1
@@ -56,10 +86,34 @@ def betterBnW(pic):
     return(pic)
 
 #Problem 2
+
 def Artify():
-  """ This function will "artify" a pic by manipulating the color ranges """
-  """ TODO define function and decide if needs arguments.  Function should be name this per LAB#6 instruction. """
-  """ TODO See lab 6 for color ranges """
+  """ This function will artify a pic by manipulating the color ranges """
+  def changePixel(pixelColorValue):
+    """This nested function will take a pixels color value from 0 -255 and alter it to be within below range, then return it """
+    if pixelColorValue < 63:
+      pixelColorValue = 31
+    elif pixelColorValue >= 63 and pixelColorValue < 128:
+      pixelColorValue = 95
+    elif pixelColorValue >= 128 and pixelColorValue < 192:
+      pixelColor = 159
+    elif pixelColorValue >= 192:
+      pixelColorValue = 223 
+    return pixelColorValue  
+  pic = getPic() #Prompts user to choose a picture file, stores in pic variable
+  pixels = getPixels(pic)
+  for p in pixels:
+    r = getRed(p)  #Gets the red value from the pixel and stores in r
+    g = getGreen(p)   
+    b = getBlue(p)
+    r = changePixel(r) #Alters the red value and stores in r
+    g = changePixel(g)
+    b = changePixel(b)
+    setRed(p,r) #Sets the red value of the pixel 
+    setGreen(p,g)
+    setBlue(p,b)  
+  repaint(pic) #Displays picture to screen
+  
 
 #Problem 3
 def chromakey():
