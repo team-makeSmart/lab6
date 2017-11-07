@@ -114,7 +114,42 @@ def Artify():
     setBlue(p,b)  
   repaint(pic) #Displays picture to screen
   
-
+def ArtifyToLevel(levelToAdjust):
+  """ This funciton receives an argument from 0 to 10 and prompts the user to get a picture """
+  """ Picture object will be altered.  0 is no change to picture and level 10 is the most change """
+  if levelToAdjust < 0 or levelToAdjust > 10:  
+    print "ERROR - Level to adjust must be from 0 to 10"
+    return  
+  def changePixel(pixelColorValue,levelToAdjust):   
+    if levelToAdjust == 0:
+        return pixelColorValue
+    else:
+      levelToAdjust = levelToAdjust * 3
+      iterations = 255 / (255*levelToAdjust*.01)
+      interval = (255 * levelToAdjust *.01) // 1     
+      for x in range (1,iterations):
+        if pixelColorValue < x * interval:
+          pixelColorValue = (x*interval) - (interval//2)  
+          break
+        if pixelColorValue > iterations * interval:
+         pixelColorValue = (iterations*interval) - (interval//2)  
+      return pixelColorValue
+  pic = makePicture(pickAFile())    
+  pixels = getPixels(pic)
+  for p in pixels:
+    r = getRed(p)  #Gets the red value from the pixel and stores in r
+    g = getGreen(p)   
+    b = getBlue(p)
+    r = changePixel(r,levelToAdjust) #Alters the red value and stores in r
+    g = changePixel(g,levelToAdjust)
+    b = changePixel(b,levelToAdjust)
+    setRed(p,r) #Sets the red value of the pixel 
+    setGreen(p,g)
+    setBlue(p,b)  
+  repaint(pic) #Displays picture to screen
+  return pic
+  
+  
 #Problem 3
 def chromakey():
     """Swaps the green in an image and replaces it with a different background image
