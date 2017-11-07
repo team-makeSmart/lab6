@@ -97,7 +97,7 @@ def Artify():
       pixelColorValue = 95
     elif pixelColorValue >= 128 and pixelColorValue < 192:
       pixelColor = 159
-    elif pixelColorValue >= 192:
+    else:
       pixelColorValue = 223 
     return pixelColorValue  
   pic = getPic() #Prompts user to choose a picture file, stores in pic variable
