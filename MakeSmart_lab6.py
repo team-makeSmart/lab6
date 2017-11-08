@@ -45,9 +45,10 @@ def crazyEye():
   
 #Problem 1
 def getPic():
-    """ prompts a user to pick a file to be converted to a JES picture """
+  
+  """ prompts a user to pick a file to be converted to a JES picture """
     
-    return makePicture(pickAFile())
+  return makePicture(pickAFile())
   
 
 def sephia():
@@ -97,7 +98,7 @@ def Artify():
       pixelColorValue = 95
     elif pixelColorValue >= 128 and pixelColorValue < 192:
       pixelColor = 159
-    elif pixelColorValue >= 192:
+    else:
       pixelColorValue = 223 
     return pixelColorValue  
   pic = getPic() #Prompts user to choose a picture file, stores in pic variable
@@ -120,44 +121,32 @@ def chromakey():
     """Swaps the green in an image and replaces it with a different background image
        Args: threshold (int or float): Sensitivity for greenscreen replacement"""
        
-    threshold = 200 #modify if image is not coming out as expected
+    threshold = 200 # modify if image is not coming out as expected
     
     # get source image and background image
-    print("Please select a photo with a green screen")
+    print "Please select a photo with a green screen" 
     source = getPic()
-    print("Please select a photo to use as a background for your new picture")
+    print "Please select a photo to use as a background for your new picture"
     background = getPic()
     
     # makes sure background image is big enough to fill the source image
     if getWidth(background) < getWidth(source):
-        print("chromakey error - background image is too narrow. Background image width: %i. Source image width: %i." % getWidth(background), getWidth(source))
-        return
+      print "chromakey error - background image is too narrow. Background image width: %i. Source image width: %i." %(getWidth(background), getWidth(source))
+      return
     elif getHeight(background) < getHeight(source):
-        print("chromakey error - background image is too short. Background image height: %i. Source image height: %i." % getHeight(backgound), getHeight(source))
-        return
-    
-    # reduce size of background image if it is significantly bigger than the source image    
-    while getWidth(background) > getWidth(source)*2 and getHeight(background) > getHeight(source)*2:
-        background = shrink(background)
+      print "chromakey error - background image is too short. Background image height: %i. Source image height: %i." %(getHeight(backgound), getHeight(source))
+      return
     
     # replace background   
     for x in range (0, getWidth(source)):
-        for y in range (0, getHeight(source)):
-            color = getColor(getPixel(source,x,y))
-            if distance(color, green) < threshold:
-                color = getColor(getPixel(background,x,y))
-                setColor(getPixel(source, x, y), color) 
+       for y in range (0, getHeight(source)):
+         color = getColor(getPixel(source,x,y))
+                            
+         if distance(color, green) < threshold:
+            color = getColor(getPixel(background,x,y)) 
+            setColor(getPixel(source, x, y), color) 
     show(source)
     return source
     
-def shrink(pic):
-  width = getWidth(pic)
-  height = getHeight(pic)
-  canvas = makeEmptyPicture(width/2, height/2)
-  for x in range (0, width-1, 2):
-    for y in range (0, height-1, 2):
-      color = getColor(getPixel(pic, x, y))
-      setColor(getPixel(canvas, x/2, y/2), color)
-  return canvas
     
   
